@@ -68,5 +68,6 @@ int main(){
     Matrix<double> M1(2, 2);
     M1.WriteMatrix();
     M1.ShowMatrix();
+    std::cout<<"do some changes";
 
 }
