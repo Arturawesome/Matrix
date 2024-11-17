@@ -1,3 +1,10 @@
+/*
+ Progect name: matrix.h / matrix.cpp
+ Author name: Artur D.Nasyrov
+ Used technologies: OOP, templates
+    IN PERSPECTIVE: integration of multithreading and CUDA
+
+ */
 #ifndef MATRIX_H
 #define MATRIX_H
 #include<vector>
@@ -10,9 +17,18 @@ private:
     double det;
 public:
     Matrix();
+    Matrix(const Matrix& other);
     Matrix(int row_input, int col_input);
+
     void ShowMatrix();
     void WriteMatrix();
+
+    double GetDeterminant();
+
+    Matrix<T>& operator *= (const Matrix<T>& other);
+    Matrix<T>& operator += (const Matrix<T>& other);
+    Matrix<T> operator +(const Matrix<T>& other);
+
 
 };
 
