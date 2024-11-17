@@ -90,9 +90,29 @@ double Matrix<T>:: GetDeterminant(){
 
 template<typename T>
 Matrix<T>& Matrix<T>:: operator *= (const Matrix<T>& other){
+    std::cout<<"There is a broot force alghoritm for matrix multiplication";
+
     int row_other = other.row;
     int col_other = other.col;
+    std::vector<std::vector<T>> mult_data(row, std::vector<T>(col_other, 0));
 
+    if(col != row_other){
+        throw std::invalid_argument("N_row(M1) != N_col(M2)");
+    }else{
+        for(int i = 0; i < row; ++i){
+            for(int j = 0; j < col_other; ++j){
+                T mult = 0;
+                for(int k = 0; k < col; ++k){
+                    mult += data[i][k]*other.data[k][j];
+                }
+                mult_data[i][j] = mult;
+            }
+        }
+    }
+    data = mult_data;
+    row = mult_data.size();
+    col = mult_data[0].size();
+    return *this;
 }
 
 
@@ -122,12 +142,15 @@ Matrix<T> Matrix<T>:: operator +(const Matrix<T>& other){
 }
 
 int main(){
-    Matrix<double> M1(2, 2);
-    Matrix<double> M2(2, 2);
+    Matrix<double> M1(3, 3);
+    Matrix<double> M2(3, 4);
     Matrix<double> M3;
     M1.WriteMatrix();
     M2.WriteMatrix();
 
+    M1 *= M2;
+    M1.ShowMatrix();
+    /*
     M1.ShowMatrix();
     M2.ShowMatrix();
     M1 += M2;
@@ -135,7 +158,9 @@ int main(){
     M1.ShowMatrix();
 
     M3 = M1 + M2;
-    M3.ShowMatrix();
+    M3.ShowMatrix();*/
+
+
 
 
 }
