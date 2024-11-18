@@ -87,6 +87,23 @@ double Matrix<T>:: GetDeterminant(){
 
 }
 
+template<typename T>
+Matrix<T> Matrix<T>:: operator *(const auto other){
+    Matrix<T> Mult = *this;
+    Mult *= other;
+    return Mult;
+}
+
+
+template <typename T>
+Matrix<T>& Matrix<T>::operator *= (const auto a){
+    for(int i = 0; i < row; ++i){
+        for(int j = 0; j < col; ++j){
+             data[i][j] *= a;
+        }
+    }
+    return *this;
+}
 
 template<typename T>
 Matrix<T>& Matrix<T>:: operator *= (const Matrix<T>& other){
@@ -94,6 +111,7 @@ Matrix<T>& Matrix<T>:: operator *= (const Matrix<T>& other){
 
     int row_other = other.row;
     int col_other = other.col;
+    T mult = 0;
     std::vector<std::vector<T>> mult_data(row, std::vector<T>(col_other, 0));
 
     if(col != row_other){
@@ -101,11 +119,12 @@ Matrix<T>& Matrix<T>:: operator *= (const Matrix<T>& other){
     }else{
         for(int i = 0; i < row; ++i){
             for(int j = 0; j < col_other; ++j){
-                T mult = 0;
+
                 for(int k = 0; k < col; ++k){
                     mult += data[i][k]*other.data[k][j];
                 }
                 mult_data[i][j] = mult;
+                mult = 0;
             }
         }
     }
@@ -148,19 +167,57 @@ int main(){
     M1.WriteMatrix();
     M2.WriteMatrix();
 
-    M1 *= M2;
-    M1.ShowMatrix();
-    /*
     M1.ShowMatrix();
     M2.ShowMatrix();
-    M1 += M2;
 
+
+    try{
+        M1 *= 2;
+    }
+    catch(const char* error_message){
+        std::cout<<error_message;
+    }
     M1.ShowMatrix();
 
-    M3 = M1 + M2;
-    M3.ShowMatrix();*/
+    std::cout<<"\n";
+    try{
+        M1.ShowMatrix();
+        M2.ShowMatrix();
+        M1 *= M2;
+    }
+    catch(const char* error_message){
+        std::cout<<error_message;
+    }
+
+    M1.ShowMatrix();
+    std::cout<<"\n";
 
 
+    try{
+        M1.ShowMatrix();
+        M2.ShowMatrix();
+        M1 += M2;
+    }
+    catch(const char* error_message){
+        std::cout<<error_message;
+    }
+    M1.ShowMatrix();
+
+
+    std::cout<<"\n";
+    try{
+        M2.ShowMatrix();
+        M3 = M2 *2 ;
+    }
+    catch(const char* error_message){
+        std::cout<<error_message;
+    }
+
+
+    std::cout<<"M3:";
+    M3.ShowMatrix();
+
+    return 0;
 
 
 }
