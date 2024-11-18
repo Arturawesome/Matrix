@@ -24,8 +24,10 @@ public:
     void WriteMatrix();
 
     double GetDeterminant();
-
+    Matrix<T>& operator *= (const auto a);
     Matrix<T>& operator *= (const Matrix<T>& other);
+    Matrix<T> operator *(const auto other);
+
     Matrix<T>& operator += (const Matrix<T>& other);
     Matrix<T> operator +(const Matrix<T>& other);
 

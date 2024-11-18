@@ -20,7 +20,7 @@ template<typename T>
 Matrix<T>::Matrix(){
     row = 1;
     col = 1;
-    std::cout<<"You do not set the numbers of rows and columns: \n"<<"default value: row = 1; col = 1";
+    std::cout<<"You do not set the numbers of rows and columns: \n"<<"default value: row = 1; col = 1\n";
 }
 
 
@@ -44,7 +44,7 @@ Matrix<T>::Matrix(int row_input, int col_input){
 
 template<typename T>
 void Matrix<T>:: WriteMatrix(){
-    std::cout<<"Write amtrix data by rows with space: ";
+    std::cout<<"Write amtrix data by rows with space: \n";
     std::string s;
     std::vector<T> row_data;
     int i = 0;
@@ -52,7 +52,7 @@ void Matrix<T>:: WriteMatrix(){
         getline(std::cin, s);
         row_data = StringToNumberVector<T>(s);
         if(row_data.size() != col){
-            std::cout<<"Amount of numbers is greater or lower then column value, try again";
+            std::cout<<"Amount of numbers is greater or lower then column value, try again\n";
             continue;
         }else{
             data.push_back(row_data);
@@ -77,7 +77,7 @@ template<typename T>
 double Matrix<T>:: GetDeterminant(){
     double det = 0;
     if(row != col){
-        throw std::invalid_argument("Matrix is not a square matrix");
+        throw std::invalid_argument("Matrix is not a square matrix\n");
     }
     else{
         det = 1;
@@ -107,7 +107,7 @@ Matrix<T>& Matrix<T>::operator *= (const auto a){
 
 template<typename T>
 Matrix<T>& Matrix<T>:: operator *= (const Matrix<T>& other){
-    std::cout<<"There is a broot force alghoritm for matrix multiplication";
+    std::cout<<"There is a broot force alghoritm for matrix multiplication\n";
 
     int row_other = other.row;
     int col_other = other.col;
@@ -115,7 +115,7 @@ Matrix<T>& Matrix<T>:: operator *= (const Matrix<T>& other){
     std::vector<std::vector<T>> mult_data(row, std::vector<T>(col_other, 0));
 
     if(col != row_other){
-        throw std::invalid_argument("N_row(M1) != N_col(M2)");
+        throw std::invalid_argument("N_row(M1) != N_col(M2)\n");
     }else{
         for(int i = 0; i < row; ++i){
             for(int j = 0; j < col_other; ++j){
@@ -140,8 +140,8 @@ Matrix<T>& Matrix<T>:: operator += (const Matrix<T>& other){
     int row_other = other.row;
     int col_other = other.col;
     if(row_other != row ||  col != col_other) {
-        std::cout << "Different size of matrix: operation not performed" << std::endl;
-        throw std::invalid_argument("Matrix dimensions do not match");
+        std::cout << "Different size of matrix: operation not performed\n" << std::endl;
+        throw std::invalid_argument("Matrix dimensions do not match\n");
     }else{
         for(int i = 0; i < row; ++i){
             for(int j = 0; j < col; ++j){
@@ -162,7 +162,7 @@ Matrix<T> Matrix<T>:: operator +(const Matrix<T>& other){
 
 int main(){
     Matrix<double> M1(3, 3);
-    Matrix<double> M2(3, 4);
+    Matrix<double> M2(4, 4);
     Matrix<double> M3;
     M1.WriteMatrix();
     M2.WriteMatrix();
