@@ -1,2 +1,2 @@
-g++ matrix.cpp
+g++ src/matrix.cpp
 ./a.out < MatrixData.txt

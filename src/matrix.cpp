@@ -1,4 +1,4 @@
-#include"matrix.h"
+#include"../include/matrix.h"
 #include<vector>
 #include<iostream>
 #include <sstream> // Include for std::istringstream
@@ -17,27 +17,18 @@ std::vector<T2> StringToNumberVector(const std::string& input) {
 
 
 template<typename T>
-Matrix<T>::Matrix(){
-    row = 1;
-    col = 1;
+Matrix<T>::Matrix(): row(1), col(1){
     std::cout<<"You do not set the numbers of rows and columns: \n"<<"default value: row = 1; col = 1\n";
 }
 
 
 template<typename T>
-Matrix<T>::Matrix(const Matrix& other){
-    row = other.row;
-    col = other.col;
-    data = other.data;
-    det = other.det;
-
-}
+Matrix<T>::Matrix(const Matrix& other): row(other.row), col(other.col),
+                                        data(other.data), det(other.det) {}
 
 
 template<typename T>
-Matrix<T>::Matrix(int row_input, int col_input){
-    row = row_input;
-    col = col_input;
+Matrix<T>::Matrix(int row_input, int col_input): row(row_input), col(col_input){
     std::cout<<"You set the numbers of rows =" << row<< " and col = "<< col<<std::endl;
 }
 
@@ -162,7 +153,7 @@ Matrix<T> Matrix<T>:: operator +(const Matrix<T>& other){
 
 int main(){
     Matrix<double> M1(3, 3);
-    Matrix<double> M2(4, 4);
+    Matrix<double> M2(3, 3);
     Matrix<double> M3;
     M1.WriteMatrix();
     M2.WriteMatrix();
