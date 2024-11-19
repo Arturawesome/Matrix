@@ -63,6 +63,20 @@ void Matrix<T>::ShowMatrix(){
     }std::cout<<"\n";
 }
 
+template<typename T>
+void Matrix<T>::Transp(){
+    std::vector<std::vector<T>> dataT(col, std::vector<T>(row, 0));
+    for(int i = 0; i < row; ++i){
+        for(int j = 0; j < col; ++j){
+            dataT[j][i] = data[i][j];
+        }
+    }
+    data = dataT;
+    int row_old = row;
+    row = col;
+    col = row_old;
+
+}
 
 template<typename T>
 double Matrix<T>:: GetDeterminant(){
@@ -71,7 +85,14 @@ double Matrix<T>:: GetDeterminant(){
         throw std::invalid_argument("Matrix is not a square matrix\n");
     }
     else{
-        det = 1;
+        double mult = 1;
+        double k = 0;
+        int ii = 0, jj = 0;
+        int i_start = 1;
+        for(int i = 1; i < row; ++i){
+            k = data[i-1][jj] / data[i][jj];
+
+        }
     }
 
     return det;
@@ -169,6 +190,11 @@ int main(){
         std::cout<<error_message;
     }
     M1.ShowMatrix();
+    std::cout<<"\n";
+
+    M1.Transp();
+    M1.ShowMatrix();
+
 
     std::cout<<"\n";
     try{

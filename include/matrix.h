@@ -22,6 +22,7 @@ public:
 
     void ShowMatrix();
     void WriteMatrix();
+    void Transp();
 
     double GetDeterminant();
     Matrix<T>& operator *= (const auto a);
