@@ -1,6 +1,8 @@
 #include"../include/matrix.h"
-#include<vector>
-#include<iostream>
+
+#include <vector>
+#include <iostream>
+#include <limits>
 #include <sstream> // Include for std::istringstream
 // template function for split and convertation of the string
 template <typename T2>
@@ -85,14 +87,16 @@ double Matrix<T>:: GetDeterminant(){
         throw std::invalid_argument("Matrix is not a square matrix\n");
     }
     else{
-        double mult = 1;
-        double k = 0;
-        int ii = 0, jj = 0;
-        int i_start = 1;
-        for(int i = 1; i < row; ++i){
-            k = data[i-1][jj] / data[i][jj];
-
+        struct mid{
+            T min_v = std::numeric_limits<T>::max();
+            int id_val = 0;
+        };
+        for(int i = 0; i < row; ++i){
+            if(data[i][0] < mid->min_v) {mid->min_v = data[i][0]; mid->id_val = i; }
         }
+        std::cout<<mid->min_v<<";; ";
+
+
     }
 
     return det;
