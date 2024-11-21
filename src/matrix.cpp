@@ -89,7 +89,7 @@ int Matrix<T>:: Swap(int i_start){
     T dat_val;
     for(int i = i_start; i < row; ++i){
         dat_val = std::abs(data[i][i_start]);
-        std::cout<<dat_val<<"\n";
+        //std::cout<<dat_val<<"\n";
         if( dat_val > mid.val){
             mid.val = dat_val;
             mid.id_val = i;
@@ -117,30 +117,17 @@ double Matrix<T>:: GetDeterminant(){
         {
 
             power += Swap(i);
-            ShowMatrix();
-
 
             for(int ii = i+1; ii < row; ++ii){
-                std::cout<<"data[ii][i] = "<<data[ii][i]<<";  data[i][i]"<< data[i][i];
-                if(data[i][i]  < 1e-12) {continue; }
-                k = data[ii][i] / data[i][i];
 
+                if(std::abs(data[i][i])  < 1e-12) {continue; }
+                k = data[ii][i] / data[i][i];
                 for(int j = 0; j < col; ++j){
                     data[ii][j] = data[ii][j] - data[i][j] * k;
                 }
             }
         }
-        std::cout<<"\ntriangle MAtrix:\n";
-        for(int i = 0; i < row; ++i){
-            for(int j = 0; j < col; ++j){
-                std::cout<<data[i][j]<<" ";
-            }
-            std::cout<<"\n";
-        }
-
-        std::cout<<std::endl;
         det_help = 1.0;
-        std::cout<<"det_help_0 = "<<det_help<<"\n";
         for(int i = 0; i < row; ++i){
             det_help *= data[i][i];
 
@@ -230,7 +217,7 @@ Matrix<T> Matrix<T>:: operator +(const Matrix<T>& other){
 }
 
 int main(){
-    Matrix<double> M1(4, 4);
+    Matrix<double> M1(5, 5);
     Matrix<double> M2(3, 3);
     Matrix<double> M3;
     M1.WriteMatrix();
