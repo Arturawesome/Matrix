@@ -23,7 +23,7 @@ public:
     void ShowMatrix();
     void WriteMatrix();
     void Transp();
-
+    int Swap(int i_start);
     double GetDeterminant();
     Matrix<T>& operator *= (const auto a);
     Matrix<T>& operator *= (const Matrix<T>& other);

@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <limits>
+#include <cmath>
 #include <sstream> // Include for std::istringstream
 // template function for split and convertation of the string
 template <typename T2>
@@ -79,27 +80,79 @@ void Matrix<T>::Transp(){
     col = row_old;
 
 }
+template<typename T>
+int Matrix<T>:: Swap(int i_start){
+    struct min_and_id{
+        T val = std::numeric_limits<T>::min();
+        int id_val = 0;
+    } mid;
+    T dat_val;
+    for(int i = i_start; i < row; ++i){
+        dat_val = std::abs(data[i][i_start]);
+        std::cout<<dat_val<<"\n";
+        if( dat_val > mid.val){
+            mid.val = dat_val;
+            mid.id_val = i;
+        }
+    }
+    if(i_start != mid.id_val){
+        std::swap(data[i_start], data[mid.id_val]);
+        return 1;
+    }
+    return 0;
 
+}
 template<typename T>
 double Matrix<T>:: GetDeterminant(){
-    double det = 0;
+    std::vector<std::vector<double>> data_h(data);
+    double det_help = 1.0;
+    int power = 0;
     if(row != col){
         throw std::invalid_argument("Matrix is not a square matrix\n");
     }
     else{
-        struct mid{
-            T min_v = std::numeric_limits<T>::max();
-            int id_val = 0;
-        };
-        for(int i = 0; i < row; ++i){
-            if(data[i][0] < mid->min_v) {mid->min_v = data[i][0]; mid->id_val = i; }
+
+        double k;
+        for(int i = 0; i < row-1; ++i)
+        {
+
+            power += Swap(i);
+            ShowMatrix();
+
+
+            for(int ii = i+1; ii < row; ++ii){
+                std::cout<<"data[ii][i] = "<<data[ii][i]<<";  data[i][i]"<< data[i][i];
+                if(data[i][i]  < 1e-12) {continue; }
+                k = data[ii][i] / data[i][i];
+
+                for(int j = 0; j < col; ++j){
+                    data[ii][j] = data[ii][j] - data[i][j] * k;
+                }
+            }
         }
-        std::cout<<mid->min_v<<";; ";
+        std::cout<<"\ntriangle MAtrix:\n";
+        for(int i = 0; i < row; ++i){
+            for(int j = 0; j < col; ++j){
+                std::cout<<data[i][j]<<" ";
+            }
+            std::cout<<"\n";
+        }
+
+        std::cout<<std::endl;
+        det_help = 1.0;
+        std::cout<<"det_help_0 = "<<det_help<<"\n";
+        for(int i = 0; i < row; ++i){
+            det_help *= data[i][i];
+
+        }
+        det_help *= std::pow(-1, power);
+        det = det_help;
+
 
 
     }
 
-    return det;
+    return det_help;
 
 }
 
@@ -177,7 +230,7 @@ Matrix<T> Matrix<T>:: operator +(const Matrix<T>& other){
 }
 
 int main(){
-    Matrix<double> M1(3, 3);
+    Matrix<double> M1(4, 4);
     Matrix<double> M2(3, 3);
     Matrix<double> M3;
     M1.WriteMatrix();
@@ -188,7 +241,7 @@ int main(){
 
 
     try{
-        M1 *= 2;
+        M1 *= 1;
     }
     catch(const char* error_message){
         std::cout<<error_message;
@@ -196,47 +249,55 @@ int main(){
     M1.ShowMatrix();
     std::cout<<"\n";
 
-    M1.Transp();
+    //M1.Transp();
+    //M1.ShowMatrix();
+
+
+    // std::cout<<"\n";
+    // try{
+    //     M1.ShowMatrix();
+    //     M2.ShowMatrix();
+    //     M1 *= M2;
+    // }
+    // catch(const char* error_message){
+    //     std::cout<<error_message;
+    // }
+    //
+    // M1.ShowMatrix();
+    // std::cout<<"\n";
+    //
+    //
+    // try{
+    //     M1.ShowMatrix();
+    //     M2.ShowMatrix();
+    //     M1 += M2;
+    // }
+    // catch(const char* error_message){
+    //     std::cout<<error_message;
+    // }
+    // M1.ShowMatrix();
+    //
+    //
+    // std::cout<<"\n";
+    // try{
+    //     M2.ShowMatrix();
+    //     M3 = M2 *2 ;
+    // }
+    // catch(const char* error_message){
+    //     std::cout<<error_message;
+    // }
+    //
+    //
+    // std::cout<<"M3:";
+    // M3.ShowMatrix();
+
     M1.ShowMatrix();
-
-
+    double det = M1.GetDeterminant();
     std::cout<<"\n";
-    try{
-        M1.ShowMatrix();
-        M2.ShowMatrix();
-        M1 *= M2;
-    }
-    catch(const char* error_message){
-        std::cout<<error_message;
-    }
+    std::cout<<"\n M1.det_val = "<<det<<"\n";
 
+    std::cout<<"\n  after GetDet: \n";
     M1.ShowMatrix();
-    std::cout<<"\n";
-
-
-    try{
-        M1.ShowMatrix();
-        M2.ShowMatrix();
-        M1 += M2;
-    }
-    catch(const char* error_message){
-        std::cout<<error_message;
-    }
-    M1.ShowMatrix();
-
-
-    std::cout<<"\n";
-    try{
-        M2.ShowMatrix();
-        M3 = M2 *2 ;
-    }
-    catch(const char* error_message){
-        std::cout<<error_message;
-    }
-
-
-    std::cout<<"M3:";
-    M3.ShowMatrix();
 
     return 0;
 
