@@ -6,11 +6,11 @@
 #include <cmath>
 #include <sstream> // Include for std::istringstream
 // template function for split and convertation of the string
-template <typename T2>
-std::vector<T2> StringToNumberVector(const std::string& input) {
+template <typename T>
+std::vector<T> StringToNumberVector(const std::string& input) {
     std::istringstream iss(input);
-    std::vector<T2> numbers;
-    T2 number;
+    std::vector<T> numbers;
+    T number;
     // Reading numbers from thr stream
     while (iss >> number) {
         numbers.push_back(number);
@@ -66,6 +66,7 @@ void Matrix<T>::ShowMatrix(){
     }std::cout<<"\n";
 }
 
+
 template<typename T>
 void Matrix<T>::Transp(){
     std::vector<std::vector<T>> dataT(col, std::vector<T>(row, 0));
@@ -78,8 +79,9 @@ void Matrix<T>::Transp(){
     int row_old = row;
     row = col;
     col = row_old;
-
 }
+
+
 template<typename T>
 int Matrix<T>:: Swap(int i_start){
     struct min_and_id{
@@ -102,24 +104,22 @@ int Matrix<T>:: Swap(int i_start){
     return 0;
 
 }
+
+
 template<typename T>
 double Matrix<T>:: GetDeterminant(){
     std::vector<std::vector<double>> data_h(data);
     double det_help = 1.0;
     int power = 0;
+
     if(row != col){
         throw std::invalid_argument("Matrix is not a square matrix\n");
-    }
-    else{
-
+    }else{
         double k;
         for(int i = 0; i < row-1; ++i)
         {
-
             power += Swap(i);
-
             for(int ii = i+1; ii < row; ++ii){
-
                 if(std::abs(data[i][i])  < 1e-12) {continue; }
                 k = data[ii][i] / data[i][i];
                 for(int j = 0; j < col; ++j){
@@ -130,18 +130,13 @@ double Matrix<T>:: GetDeterminant(){
         det_help = 1.0;
         for(int i = 0; i < row; ++i){
             det_help *= data[i][i];
-
         }
         det_help *= std::pow(-1, power);
         det = det_help;
-
-
-
     }
-
     return det_help;
-
 }
+
 
 template<typename T>
 Matrix<T> Matrix<T>:: operator *(const auto other){
@@ -161,10 +156,9 @@ Matrix<T>& Matrix<T>::operator *= (const auto a){
     return *this;
 }
 
+
 template<typename T>
 Matrix<T>& Matrix<T>:: operator *= (const Matrix<T>& other){
-    std::cout<<"There is a broot force alghoritm for matrix multiplication\n";
-
     int row_other = other.row;
     int col_other = other.col;
     T mult = 0;
@@ -175,7 +169,6 @@ Matrix<T>& Matrix<T>:: operator *= (const Matrix<T>& other){
     }else{
         for(int i = 0; i < row; ++i){
             for(int j = 0; j < col_other; ++j){
-
                 for(int k = 0; k < col; ++k){
                     mult += data[i][k]*other.data[k][j];
                 }
@@ -215,6 +208,7 @@ Matrix<T> Matrix<T>:: operator +(const Matrix<T>& other){
     Sum += other;
     return Sum;
 }
+
 
 int main(){
     Matrix<double> M1(5, 5);
