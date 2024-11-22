@@ -1,0 +1,6 @@
+# Ignore compile file
+a.out
+# Ignore plane.txt
+plan.txt
+# Ignore object files
+*.o
