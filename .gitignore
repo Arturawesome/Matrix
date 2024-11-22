@@ -1,6 +1,15 @@
 # Ignore compile file
 a.out
+
 # Ignore plane.txt
 plan.txt
-# Ignore object files
+
+# Ignore conf Qt Creator files
+*.pro.user
+*.pro.user.*
+
+# Ignoe temporary files
 *.o
+*.obj
+*.tmp
+*.qrc.dep
