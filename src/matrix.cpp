@@ -83,7 +83,7 @@ void Matrix<T>::Transp(){
 
 
 template<typename T>
-int Matrix<T>:: Swap(int i_start){
+int Matrix<T>::Swap(int i_start){
     struct min_and_id{
         T val = std::numeric_limits<T>::min();
         int id_val = 0;
