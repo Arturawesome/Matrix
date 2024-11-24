@@ -209,7 +209,7 @@ Matrix<T> Matrix<T>:: operator +(const Matrix<T>& other){
     return Sum;
 }
 
-
+/*
 int main(){
     Matrix<double> M1(5, 5);
     Matrix<double> M2(3, 3);
@@ -284,3 +284,4 @@ int main(){
 
 
 }
+*/

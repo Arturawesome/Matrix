@@ -23,7 +23,7 @@ plan.txt
 
 
 # CMake build files
-/build/
+build/
 CMakeFiles/
 CMakeCache.txt
 *.cmake
