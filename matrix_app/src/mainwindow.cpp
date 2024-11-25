@@ -1,7 +1,3 @@
-#include<iostream>
-int mainwindow(){
-    std::cout<<"src/mainwindow.cpp";
-}
-
-
-
+// mainwindow.cpp
+#include "mainwindow.h"
+MainWindow::MainWindow() {}
