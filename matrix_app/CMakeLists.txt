@@ -32,6 +32,7 @@ add_executable(MatrixApp
 )
 
 # Автоматическая обработка Qt ресурсов и UI файлов
+# THIS command creates ui_mainwindow.h and (in some times) ui_mainwindow.cpp files
 qt6_wrap_ui(UI_HEADERS ${UI_DIR}/mainwindow.ui)
 qt6_add_resources(RESOURCE_SOURCES ${RESOURCES_DIR}/icons.qrc)
 
