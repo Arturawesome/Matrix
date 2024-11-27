@@ -3,7 +3,7 @@
 #include "ui_mainwindow.h"
 
 
-MainWindow::MainWindow(QWidject *parent)
+MainWindow::MainWindow(QWidget *parent)
             :QMainWindow(parent), ui(new Ui::MainWindow)
 {
     /*
@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidject *parent)
     ui->setupUi(this);
 }
 
-MainWindow::!MainWindow(){
+MainWindow::~MainWindow(){
     delete ui;
 }
 

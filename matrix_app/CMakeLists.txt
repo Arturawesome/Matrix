@@ -1,55 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
-# Название проекта
-project(MatrixApp)
+project(MatrixApp VERSION 1.0.0 LANGUAGES CXX)
 
-# Указываем стандарт языка
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
-# Установка переменных для путей
-set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(UI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ui)
-set(TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
-set(RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/resources)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-# Подключаем Qt
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui)
-
-# Указываем путь для включения заголовочных файлов
-include_directories(${INCLUDE_DIR})
-
-# Автоматическая обработка Qt ресурсов и UI файлов
-# THIS command creates ui_mainwindow.h and (in some times) ui_mainwindow.cpp files
-qt6_wrap_ui(UI_HEADERS ${UI_DIR}/mainwindow.ui)
-qt6_add_resources(RESOURCE_SOURCES ${RESOURCES_DIR}/icons.qrc)
-
-
-
-# Основное приложение
-add_executable(MatrixApp
-    ${SRC_DIR}/main.cpp
-    ${SRC_DIR}/mainwindow.cpp
-    ${SRC_DIR}/matrix.cpp
-    ${RESOURCES_DIR}/icons.qrc
-    ${UI_HEADERS}
-    ${RESOURCE_SOURCES}
-)
-#    ${UI_DIR}/mainwindow.ui
-
-# Добавляем UI и ресурсы в основной проект
-target_sources(MatrixApp PRIVATE ${UI_HEADERS} ${RESOURCE_SOURCES})
-
-# Связываем с необходимыми библиотеками Qt
-target_link_libraries(MatrixApp Qt6::Core Qt6::Widgets Qt6::Gui)
-
-# Подключение тестов (если нужно)
-add_subdirectory(tests)
-
-# Устанавливаем правила установки (например, бинарник)
-install(TARGETS MatrixApp DESTINATION bin)
+add_subdirectory(src)
