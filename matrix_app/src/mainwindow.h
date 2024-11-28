@@ -4,6 +4,10 @@
 
 #include<QMainWindow>   // standart Qt6 class dedicated
                         // to creating the main window
+#include<vector>
+#include"matrix.h"
+
+
 
 /*
     when mainwindow.ui is created, Qt6 automatically generate the ui_mainwindow.h file with     interface of class.
@@ -26,9 +30,22 @@ public:
 
 private:
     Ui::MainWindow *ui; //Pointer to object which describe the interface
+    int matrix_amaunt;
+    int current_matrix_index;
+    std::vector<Matrix<double>> list_of_matrix;
+
+    //renew text in input row_col_data line
+    void update_promt();
+    //clean the input filed of row and conflict
+    void clean_input_row_col();
+
 
 private slots:
+    // processing number of matrix
     void onMatrixCountChanged(int cout);
+    //Transition for the next matrix
+    void onNextButtonClicked();
+
 };
 
 

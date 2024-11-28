@@ -1,7 +1,7 @@
 // mainwindow.cpp
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <qDebug>
 
 MainWindow::MainWindow(QWidget *parent)
             :QMainWindow(parent), ui(new Ui::MainWindow)
@@ -21,6 +21,13 @@ MainWindow::~MainWindow(){
     delete ui;
 }
 void MainWindow::onMatrixCountChanged(int count){
+    matrix_amaunt = count;
     qDebug() << "Num of Matrix changet to:  "<<count<<"\n";
+}
+
+
+void MainWindow::onNextButtonClicked(){
+    return;
+
 }
 
