@@ -12,10 +12,15 @@ MainWindow::MainWindow(QWidget *parent)
         this object contans interface and all their elements
      */
     ui->setupUi(this);
+
+    // tourn the signal on for changing value of QSpinBox
+    connect(ui->spinBoxMatrixCount, SIGNAL(valueChanged(int)), this, SLOT(onMatrixCountChanged(int)) );
 }
 
 MainWindow::~MainWindow(){
     delete ui;
 }
-
+void MainWindow::onMatrixCountChanged(int count){
+    qDebug() << "Num of Matrix changet to:  "<<count<<"\n";
+}
 

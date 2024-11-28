@@ -26,6 +26,9 @@ public:
 
 private:
     Ui::MainWindow *ui; //Pointer to object which describe the interface
+
+private slots:
+    void onMatrixCountChanged(int cout);
 };
 
 

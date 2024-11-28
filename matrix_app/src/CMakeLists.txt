@@ -43,3 +43,6 @@ target_link_libraries(MatrixApp Qt6::Core Qt6::Widgets Qt6::Gui)
 
 # Устанавливаем правила установки (например, бинарник)
 install(TARGETS MatrixApp DESTINATION bin)
+
+
+
