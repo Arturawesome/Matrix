@@ -4,8 +4,8 @@
 
 #include<QMainWindow>   // standart Qt6 class dedicated
                         // to creating the main window
-#include<vector>
-#include"matrix.h"
+#include <vector>
+#include "matrix.h"
 
 
 
@@ -30,14 +30,16 @@ public:
 
 private:
     Ui::MainWindow *ui; //Pointer to object which describe the interface
-    int matrix_amaunt;
+    int matrix_amount;
     int current_matrix_index;
     std::vector<Matrix<double>> list_of_matrix;
 
     //renew text in input row_col_data line
-    void update_promt();
+    void updatePromt();
+    void updateDataWindow(int count, Matrix<double>& data);
     //clean the input filed of row and conflict
-    void clean_input_row_col();
+    void cleanInputRowCol();
+    void cleanWriteMatrixWindow();
 
 
 private slots:
@@ -45,6 +47,8 @@ private slots:
     void onMatrixCountChanged(int cout);
     //Transition for the next matrix
     void onNextButtonClicked();
+    //void onMatrixInfoChanged();
+    void onWriteButtonClickedSave();
 
 };
 

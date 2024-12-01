@@ -1,4 +1,4 @@
-#include"matrix.h"
+#include "matrix.h"
 
 #include <vector>
 #include <iostream>
@@ -18,22 +18,22 @@ std::vector<T> StringToNumberVector(const std::string& input) {
     return numbers;
 }
 
-
-template<typename T>
-Matrix<T>::Matrix(): row(1), col(1){
-    std::cout<<"You do not set the numbers of rows and columns: \n"<<"default value: row = 1; col = 1\n";
-}
-
-
-template<typename T>
-Matrix<T>::Matrix(const Matrix& other): row(other.row), col(other.col),
-                                        data(other.data), det(other.det) {}
-
-
-template<typename T>
-Matrix<T>::Matrix(int row_input, int col_input): row(row_input), col(col_input){
-    std::cout<<"You set the numbers of rows =" << row<< " and col = "<< col<<std::endl;
-}
+// template<typename T>
+// void Matrix<T>::WriteMatrix(QString& matrixData){
+//     QStringList lines = matrixData.split("\n", Qt::SkipEmptyParts);
+//
+//     for(const QString &line: lines){
+//         std::vector<double> numbers;
+//         //split qtline by spaces. qstring - "in ni " -> qstringlist {"in", "ni"}
+//         QStringList elements = line.split(" ", Qt::SkipEmptyParts);
+//         for(const QString &el: elements){
+//             bool ok;
+//             double num = el.toDouble(&ok); // Преобразуем элемент в число
+//             numbers.push_back(num);
+//         }
+//         data.push_back(numbers);
+//     }
+// }
 
 
 template<typename T>
@@ -56,15 +56,6 @@ void Matrix<T>:: WriteMatrix(){
 }
 
 
-template<typename T>
-void Matrix<T>::ShowMatrix(){
-    std::cout<<"Your Matrix: \n";
-    for(int i = 0; i < row; ++i){
-        for(int j = 0; j < col; ++j){
-            std::cout<<data[i][j]<<" ";
-        }std::cout<<"\n";
-    }std::cout<<"\n";
-}
 
 
 template<typename T>
