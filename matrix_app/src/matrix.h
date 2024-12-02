@@ -9,7 +9,6 @@
 #define MATRIX_H
 #include<vector>
 #include<iostream>
-
 #include<QMainWindow>
 
 template<typename T>
@@ -20,10 +19,6 @@ private:
     double det;
 public:
 
-
-
-
-
     Matrix(): row(1), col(1){
         std::cout<<"You do not set the numbers of rows and columns: \n"<<"default value: row = 1; col = 1\n";
     }
@@ -31,17 +26,17 @@ public:
     Matrix(const Matrix& other): row(other.row), col(other.col),
     data(other.data), det(other.det) {}
 
-
     Matrix(int row_input, int col_input): row(row_input), col(col_input){
         std::cout<<"You set the numbers of rows =" << row<< " and col = "<< col<<std::endl;
     }
 
 
-
     void ShowMatrix(){
         qDebug()<<"In ShowMatrix\n";
         std::cout<<"Your Matrix: \n";
-        std::cout<<"row = "<<row;
+        std::cout<<"row = "<<row<<";  \n";
+        std::cout<<"col = "<<col<<";  \n";
+        std::cout<<"\n \n";
         for(int i = 0; i < row; ++i){
             for(int j = 0; j < col; ++j){
                 std::cout<<data[i][j]<<" ";
@@ -61,16 +56,19 @@ public:
             for(const QString &el: elements){
                 bool ok;
                 double num = el.toDouble(&ok); // Преобразуем элемент в число
-                numbers.push_back(num);
+                if(ok) numbers.push_back(num);
+                qDebug()<<num<<"\n";
             }
+            qDebug()<<"\n";
             data.push_back(numbers);
         }
+        ShowMatrix();
     }
     int GetRow(){
-        return data.size();
+        return row;
     }
     int GetCol(){
-        return data[0].size();
+        return col;
     }
 
     void Transp();

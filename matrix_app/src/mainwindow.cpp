@@ -52,39 +52,36 @@ void MainWindow::onMatrixCountChanged(int count){
 
 
 void MainWindow::onWriteButtonClickedSave(){
+    int id_matrix = matrix_amount - current_matrix_index;
+    qDebug()<<"id_matrix = "<<id_matrix<<"\n";
+    qDebug()<<"current_matrix_index = "<<current_matrix_index<<"\n";
 
-    //ui->plainTextEditMatrixData->toPlainText();
     QString matrixData = ui->plainTextEditMatrixData->toPlainText();
-    //data.Write(Qstring matrix data)
-    list_of_matrix[(matrix_amount - current_matrix_index)].WriteMatrix(matrixData);
+    list_of_matrix[id_matrix].WriteMatrix(matrixData);
+    list_of_matrix[id_matrix].ShowMatrix();
 
-    updateDataWindow((matrix_amount - current_matrix_index) + 1, list_of_matrix[(matrix_amount - current_matrix_index)]);
+    cleanWriteMatrixWindow();
     current_matrix_index--;
 
     if(current_matrix_index <= 0){
         ui->pushButtonSaveMatrixData->setEnabled(false);
         ui->plainTextEditMatrixData->setEnabled(false);
-    }else{
-        cleanWriteMatrixWindow();
-        updateDataWindow((matrix_amount - current_matrix_index) + 1, list_of_matrix[(matrix_amount - current_matrix_index)]);
+    } else {
+        updateDataWindow(id_matrix+2, list_of_matrix[id_matrix+1]);
     }
-    qDebug()<<"here\n";
-   //list_of_matrix[(matrix_amount - current_matrix_index)].ShowMatrix();
-   qDebug()<<"after\n";
 
 }
 
 void MainWindow::onNextButtonClicked(){
     bool row_ok, col_ok;
     int row, col;
+
     row = ui->lineEditRow->text().toInt();
     col = ui->lineEditColumn->text().toInt();
-    std::cout<<row<<" "<<col<<"\n";
-
     Matrix<double> data(row, col);
     list_of_matrix.push_back(data);
-    qDebug()<<"Matrix "<<current_matrix_index <<" has "<<row<<" rows and" << col <<" cols \n";
     current_matrix_index++;
+
     if(current_matrix_index >= matrix_amount){
         qDebug()<<"All Matrixs are created\n";
         ui->labeRowColInput ->setText("All matrixes are created");
@@ -96,14 +93,15 @@ void MainWindow::onNextButtonClicked(){
         ui->plainTextEditMatrixData->setEnabled(true);
         updateDataWindow((matrix_amount - current_matrix_index) + 1, list_of_matrix[(matrix_amount - current_matrix_index)]);
 
-    }
-    else{
+
+    }else{
         updatePromt();
         cleanInputRowCol();
     }
 }
 
 void MainWindow::updateDataWindow(int count, Matrix<double>& data){
+    qDebug()<<"updateDataWindow\n";
     QString info = QString("Write Matrix %1: row = %2, col = %3").arg(count).arg(data.GetRow()).arg(data.GetCol());
     ui->labeWriteMatrix ->setText(info);
 }
@@ -111,14 +109,12 @@ void MainWindow::updatePromt(){
     // Qstring - field of qt6.
     // Arg - function for changeing infro after % in Qstring
     QString promt = QString("Write the number of rows and columns in Matrix %1").arg(current_matrix_index+1);
-
     // I set name in Qt creator for Qlabel labeRowColInput -> ui->labeRowColInput for changeing
     ui->labeRowColInput ->setText(promt);
 }
 void MainWindow::cleanWriteMatrixWindow(){
     ui->plainTextEditMatrixData ->clear();
 }
-
 
 void MainWindow::cleanInputRowCol(){
     //clean the text fileds

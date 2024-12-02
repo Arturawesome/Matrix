@@ -22,10 +22,10 @@ qt6_add_resources(RESOURCE_SOURCES ${RESOURCES_DIR}/icons.qrc)
 
 # Основное приложение
 add_executable(MatrixApp
-    main.cpp
     mainwindow.cpp
     matrix.cpp
     mainwindow.ui
+    main.cpp
     ${RESOURCES_DIR}/icons.qrc
     ${RESOURCE_SOURCES}
 
