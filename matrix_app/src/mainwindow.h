@@ -50,6 +50,8 @@ private slots:
     //void onMatrixInfoChanged();
     void onWriteButtonClickedSave();
 
+    void onCalculateButtonClicked();
+
 };
 
 

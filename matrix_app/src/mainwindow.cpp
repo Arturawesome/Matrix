@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pushButtonSaveMatrixData, &QPushButton::clicked, this, &MainWindow::onWriteButtonClickedSave);
 
+    connect(ui->pushButtonCalculate, &QPushButton::clicked, this, &MainWindow::onCalculateButtonClicked );
+
     updatePromt();
     ui->lineEditRow->setEnabled(false);
     ui->lineEditColumn->setEnabled(false);
@@ -48,6 +50,29 @@ void MainWindow::onMatrixCountChanged(int count){
         ui->lineEditColumn->setEnabled(false);
         ui->pushButtonSave->setEnabled(false);
     }
+}
+
+
+void MainWindow::onCalculateButtonClicked(){
+    QString expression = ui->plainTextEditExpression->toPlainText();
+    //qDebug()<<expression;
+
+    try{
+        QStringList members = expression.split(" ", Qt::SkipEmptyParts);
+         qDebug()<<"In try\n";
+        for(const QString el: members){
+            qDebug()<<el<<"\n";
+        }
+
+    } catch (const std::invalid_argument& e) {
+        //QMessageBox::warning(this, "Error", QString("Invalid expression: %1").arg(e.what()));
+        ui->labelExpressionResult->setText("Error in expression!");
+    }
+
+
+
+
+    return;
 }
 
 

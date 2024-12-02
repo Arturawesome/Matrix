@@ -127,6 +127,42 @@ Matrix
 Data</string>
     </property>
    </widget>
+   <widget class="QLabel" name="labelExpressionResult">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>330</y>
+      <width>311</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Write the expression for matrix equation&lt;/p&gt;&lt;p&gt;!!! USE SPACES betwen Operations!!!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEditExpression">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>400</y>
+      <width>301</width>
+      <height>87</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonCalculate">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>490</y>
+      <width>301</width>
+      <height>38</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Run calculation!</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
