@@ -3,5 +3,5 @@ mkdir build
 cd build
 cmake ..
 make
-cd /home/artur/Documents/Matrix/matrix_app/build/src/
+cd /home/softmatter/Documents/С++/Matrix/matrix_app/build/src/
 ./MatrixApp

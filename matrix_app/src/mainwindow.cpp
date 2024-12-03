@@ -5,6 +5,10 @@
 #include "parser.h"
 #include <QDebug>
 
+int get_index(QString mat_index){
+    return mat_index.right(mat_index.size()-1).toInt();
+}
+
 MainWindow::MainWindow(QWidget *parent)
             :QMainWindow(parent), ui(new Ui::MainWindow), matrix_amount(0), current_matrix_index(0)
 {
@@ -60,9 +64,73 @@ void MainWindow::onCalculateButtonClicked(){
 
     try{
         std::vector<QString> polish_not = process_the_expression(expression);
+        std::stack<Matrix<double>> mats;
+        std::stack<double> scalar;
+
+        qDebug()<<"Matrix<double> mat_1;\n";
+        Matrix<double> mat_1;
+        qDebug()<<"Matrix<double> mat_2;\n";
+        Matrix<double> mat_2;
+        QString mat_1_str, mat_2_str;
+        double scalar_number1, scalar_number2;
+
         for(QString el:polish_not){
-            qDebug()<<el;
+            qDebug()<<el<<" ";
+            if(is_operator(el)){
+                if(el == "det"){
+                    mat_1 = mats.top();
+                    mats.pop();
+                    scalar.push(mat_1.GetDeterminant());
+                } else if(el == "+") {
+                    if(mats.size() < 2) throw std::invalid_argument("Not enough matrices for determinant.");
+                    mat_1 = mats.top();
+                    mats.pop();
+                    mat_2 = mats.top();
+                    mats.pop();
+                    mats.push(mat_1 + mat_2);
+                } else if (el == "*") {
+                    if(scalar.empty()){
+                        // multiply of two matrix
+                        if(mats.size() < 2) throw std::invalid_argument("Not enough matrices for determinant.");
+                        mat_1 = mats.top();
+                        mats.pop();
+                        mat_2 = mats.top();
+                        mats.pop();
+                        mats.push(mat_1 * mat_2);
+
+                    } else {
+                        // multiply matrix by number
+                        if (scalar.size() > 1) {
+                            scalar_number1 = scalar.top();
+                            scalar.pop();
+
+                            scalar_number2 = scalar.top();
+                            scalar.pop();
+
+                            scalar.push(scalar_number1*scalar_number2);
+                        } else {
+                            scalar_number1 = scalar.top();
+                            scalar.pop();
+
+                            mat_1 = mats.top();
+                            mats.pop();
+                            mats.push(mat_1 * scalar_number1);
+                        }
+
+                    }
+                }
+            } else {
+                if (el.startsWith("M")) {
+                    int id_mat = el.right(el.length() - 1).toInt() -1;
+                    qDebug()<<id_mat<<"\n";
+                    mats.push(list_of_matrix[id_mat]);
+                }
+            }
         }
+
+        qDebug()<<"mats.top.ShowMatrix(): \n";
+        mats.top().ShowMatrix();
+
 
     } catch (const std::invalid_argument& e) {
         //QMessageBox::warning(this, "Error", QString("Invalid expression: %1").arg(e.what()));
