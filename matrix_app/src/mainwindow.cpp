@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "matrix.h"
+#include "parser.h"
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -58,19 +59,15 @@ void MainWindow::onCalculateButtonClicked(){
     //qDebug()<<expression;
 
     try{
-        QStringList members = expression.split(" ", Qt::SkipEmptyParts);
-         qDebug()<<"In try\n";
-        for(const QString el: members){
-            qDebug()<<el<<"\n";
+        std::vector<QString> polish_not = process_the_expression(expression);
+        for(QString el:polish_not){
+            qDebug()<<el;
         }
 
     } catch (const std::invalid_argument& e) {
         //QMessageBox::warning(this, "Error", QString("Invalid expression: %1").arg(e.what()));
         ui->labelExpressionResult->setText("Error in expression!");
     }
-
-
-
 
     return;
 }
