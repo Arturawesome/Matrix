@@ -36,7 +36,7 @@ private:
 
     //renew text in input row_col_data line
     void updatePromt();
-    void updateDataWindow(int count, Matrix<double>& data);
+    void updateDataWindow(int count, const Matrix<double>& data);
     //clean the input filed of row and conflict
     void cleanInputRowCol();
     void cleanWriteMatrixWindow();

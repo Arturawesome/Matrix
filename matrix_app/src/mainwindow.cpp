@@ -163,13 +163,14 @@ void MainWindow::onWriteButtonClickedSave(){
 }
 
 void MainWindow::onNextButtonClicked(){
-    bool row_ok, col_ok;
     int row, col;
 
     row = ui->lineEditRow->text().toInt();
     col = ui->lineEditColumn->text().toInt();
     Matrix<double> data(row, col);
+    qDebug()<<"onNextButtonClicked after Matrix<double> data(row, col)\n";
     list_of_matrix.push_back(data);
+    qDebug()<<" after list_of_matrix.push_back(data); \n";
     current_matrix_index++;
 
     if(current_matrix_index >= matrix_amount){
@@ -190,7 +191,7 @@ void MainWindow::onNextButtonClicked(){
     }
 }
 
-void MainWindow::updateDataWindow(int count, Matrix<double>& data){
+void MainWindow::updateDataWindow(int count, const Matrix<double>& data){
     qDebug()<<"updateDataWindow\n";
     QString info = QString("Write Matrix %1: row = %2, col = %3").arg(count).arg(data.GetRow()).arg(data.GetCol());
     ui->labeWriteMatrix ->setText(info);

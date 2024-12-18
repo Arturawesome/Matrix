@@ -23,8 +23,11 @@ public:
         std::cout<<"You do not set the numbers of rows and columns: \n"<<"default value: row = 1; col = 1\n";
     }
 
-    Matrix(const Matrix& other): row(other.row), col(other.col),
-    data(other.data), det(other.det) {}
+    Matrix(const Matrix& other): data(other.data), det(other.det) {
+        std::cout<<"In copy constructor\n\n";
+        row = other.GetRow();
+        col = other.GetCol();
+    }
 
     Matrix(int row_input, int col_input): row(row_input), col(col_input){
         std::cout<<"You set the numbers of rows =" << row<< " and col = "<< col<<std::endl;
@@ -64,14 +67,23 @@ public:
         }
         ShowMatrix();
     }
-    int GetRow(){
-        return row;
+    int GetRow() const {
+        if(data.empty()){
+            return row;
+        } else {
+            return data.size();
+        }
     }
-    int GetCol(){
-        return col;
+    int GetCol() const{
+        if(data.empty()){
+            return col;
+        } else {
+            return data[0].size();
+        }
     }
 
     void Transp();
+
     int Swap(int i_start){
         struct min_and_id{
             T val = std::numeric_limits<T>::min();
@@ -107,16 +119,16 @@ public:
             {
                 power += Swap(i);
                 for(int ii = i+1; ii < row; ++ii){
-                    if(std::abs(data[i][i])  < 1e-12) {continue; }
-                    k = data[ii][i] / data[i][i];
+                    if(std::abs(data_h[i][i])  < 1e-12) {continue; }
+                    k = data_h[ii][i] / data_h[i][i];
                     for(int j = 0; j < col; ++j){
-                        data[ii][j] = data[ii][j] - data[i][j] * k;
+                        data_h[ii][j] = data_h[ii][j] - data_h[i][j] * k;
                     }
                 }
             }
             det_help = 1.0;
             for(int i = 0; i < row; ++i){
-                det_help *= data[i][i];
+                det_help *= data_h[i][i];
             }
             det_help *= std::pow(-1, power);
             det = det_help;
@@ -136,8 +148,8 @@ public:
 
 
     Matrix<T>& operator *= (const Matrix<T>& other){
-        int row_other = other.row;
-        int col_other = other.col;
+        int row_other = other.GetRow();
+        int col_other = other.GetCol();
         T mult = 0;
         std::vector<std::vector<T>> mult_data(row, std::vector<T>(col_other, 0));
 
@@ -166,9 +178,11 @@ public:
     }
 
 
+
+
     Matrix<T>&  operator += (const Matrix<T>& other){
-        int row_other = other.row;
-        int col_other = other.col;
+        int row_other = other.GetRow();
+        int col_other = other.GetCol();
         if(row_other != row ||  col != col_other) {
             std::cout << "Different size of matrix: operation not performed\n" << std::endl;
             throw std::invalid_argument("Matrix dimensions do not match\n");
@@ -189,8 +203,8 @@ public:
     }
 
     Matrix<T>&  operator -= (const Matrix<T>& other){
-        int row_other = other.row;
-        int col_other = other.col;
+        int row_other = other.GetRow();
+        int col_other = other.GetCol();
         if(row_other != row ||  col != col_other) {
             std::cout << "Different size of matrix: operation not performed\n" << std::endl;
             throw std::invalid_argument("Matrix dimensions do not match\n");
