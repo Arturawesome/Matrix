@@ -15,15 +15,17 @@
 
 // Функция возвращает приоритет операции
 int get_priority(const QString& op) {
+    if (op == "T.") return 4; // Самый высокий приоритет
     if (op == "det") return 3; // Самый высокий приоритет
     if (op == "*") return 2;  // Умножение
     if (op == "+") return 1;  // Сложение
+    if (op == "-") return 1;  // Сложение
     return 0; // Для неизвестных или низкоприоритетных
 }
 
 // Функция проверки, является ли строка оператором
 bool is_operator(const QString& token) {
-    return token == "-" || token == "+" || token == "*" || token == "det";
+    return token == "T." || token == "-" || token == "+" || token == "*" || token == "det";
 }
 
 bool is_number(const QString& token){
@@ -37,12 +39,6 @@ std::vector<QString> process_the_expression(const QString& expression) {
     std::vector<QString> output; // Результат (постфиксная нотация)
     std::stack<QString> operators; // Стек операторов
     QStringList tokens = expression.split(" ", Qt::SkipEmptyParts); // Разделяем строку на токены
-
-    // std::unordered_map<QString, int> num_collection = {
-    //     {"0", 1}, {"1", 1}, {"2", 1}, {"3", 1}, {"4", 1},
-    //     {"5", 1}, {"6", 1}, {"7", 1}, {"8", 1}, {"9", 1}
-    // };
-
 
 
     for (const QString& token : tokens) {

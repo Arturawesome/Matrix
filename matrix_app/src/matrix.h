@@ -76,7 +76,20 @@ public:
         }
     }
 
-    void Transp();
+    Matrix<T>& Transp(){
+        std::vector<std::vector<T>> dataT(col, std::vector<T>(row, 0));
+        for(int i = 0; i < row; ++i){
+            for(int j = 0; j < col; ++j){
+                dataT[j][i] = data[i][j];
+            }
+        }
+        data = dataT;
+        int row_old = row;
+        row = col;
+        col = row_old;
+        return *this;
+    }
+
 
     int Swap(int i_start){
         struct min_and_id{

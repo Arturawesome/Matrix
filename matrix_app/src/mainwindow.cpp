@@ -86,6 +86,10 @@ void MainWindow::onCalculateButtonClicked(){
                     mat_1 = mats.top();
                     mats.pop();
                     scalar.push(mat_1.GetDeterminant());
+                } else if (el == "T."){
+                    mat_1 = mats.top();
+                    mats.pop();
+                    mats.push(mat_1.Transp());
                 } else if(el == "-") {
                     if(mats.size() < 2) throw std::invalid_argument("Not enough matrices for determinant.");
                     mat_1 = mats.top();
