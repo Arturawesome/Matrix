@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pushButtonCalculate, &QPushButton::clicked, this, &MainWindow::onCalculateButtonClicked );
 
+
     updatePromt();
     ui->lineEditRow->setEnabled(false);
     ui->lineEditColumn->setEnabled(false);
@@ -60,6 +61,7 @@ void MainWindow::onMatrixCountChanged(int count){
 
 void MainWindow::onCalculateButtonClicked(){
     QString expression = ui->plainTextEditExpression->toPlainText();
+    QString output = "output";
     //qDebug()<<expression;
 
     try{
@@ -86,10 +88,13 @@ void MainWindow::onCalculateButtonClicked(){
                     mat_1 = mats.top();
                     mats.pop();
                     scalar.push(mat_1.GetDeterminant());
+                    output += "; det\n";
                 } else if (el == "T."){
                     mat_1 = mats.top();
                     mats.pop();
                     mats.push(mat_1.Transp());
+                    output += "; T";
+
                 } else if(el == "-") {
                     if(mats.size() < 2) throw std::invalid_argument("Not enough matrices for determinant.");
                     mat_1 = mats.top();
@@ -97,6 +102,7 @@ void MainWindow::onCalculateButtonClicked(){
                     mat_2 = mats.top();
                     mats.pop();
                     mats.push(mat_2 - mat_1);
+                    output += "; Minus\n";
                 } else if(el == "+") {
                     if(mats.size() < 2) throw std::invalid_argument("Not enough matrices for determinant.");
                     mat_1 = mats.top();
@@ -104,6 +110,7 @@ void MainWindow::onCalculateButtonClicked(){
                     mat_2 = mats.top();
                     mats.pop();
                     mats.push(mat_1 + mat_2);
+                    output += "; Plus\n";
                 } else if (el == "*") {
                     if(scalar.empty()){
                         // multiply of two matrix
@@ -113,6 +120,7 @@ void MainWindow::onCalculateButtonClicked(){
                         mat_2 = mats.top();
                         mats.pop();
                         mats.push(mat_1 * mat_2);
+                        output += "; Multiply\n";
 
                     } else {
                         // multiply matrix by number
@@ -122,6 +130,7 @@ void MainWindow::onCalculateButtonClicked(){
 
                             scalar_number2 = scalar.top();
                             scalar.pop();
+                            output += "; scalar Myltiply\n";
 
                             scalar.push(scalar_number1*scalar_number2);
                         } else {
@@ -130,6 +139,7 @@ void MainWindow::onCalculateButtonClicked(){
 
                             mat_1 = mats.top();
                             mats.pop();
+                             output += "; scalar to Mat Multiply\n";
 
                             mats.push(mat_1 * scalar_number1);
                         }
@@ -156,7 +166,7 @@ void MainWindow::onCalculateButtonClicked(){
             qDebug()<<scalar.top();
         }
 
-
+    ui->textBrowserAnswer->setText(output);
 
     } catch (const std::invalid_argument& e) {
         //QMessageBox::warning(this, "Error", QString("Invalid expression: %1").arg(e.what()));

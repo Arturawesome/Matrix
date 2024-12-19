@@ -163,6 +163,16 @@ Data</string>
      <string>Run calculation!</string>
     </property>
    </widget>
+   <widget class="QTextBrowser" name="textBrowserAnswer">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>140</y>
+      <width>341</width>
+      <height>391</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
