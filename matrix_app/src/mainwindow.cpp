@@ -67,20 +67,32 @@ void MainWindow::onCalculateButtonClicked(){
         std::stack<Matrix<double>> mats;
         std::stack<double> scalar;
 
-        qDebug()<<"Matrix<double> mat_1;\n";
+
         Matrix<double> mat_1;
-        qDebug()<<"Matrix<double> mat_2;\n";
         Matrix<double> mat_2;
+
         QString mat_1_str, mat_2_str;
         double scalar_number1, scalar_number2;
 
+        qDebug()<<"Show Polish Annotation:\n";
         for(QString el:polish_not){
-            qDebug()<<el<<" ";
+             qDebug()<<el<<" ";
+        }
+        qDebug()<<"\n\n";
+
+        for(QString el:polish_not){
             if(is_operator(el)){
                 if(el == "det"){
                     mat_1 = mats.top();
                     mats.pop();
                     scalar.push(mat_1.GetDeterminant());
+                } else if(el == "-") {
+                    if(mats.size() < 2) throw std::invalid_argument("Not enough matrices for determinant.");
+                    mat_1 = mats.top();
+                    mats.pop();
+                    mat_2 = mats.top();
+                    mats.pop();
+                    mats.push(mat_2 - mat_1);
                 } else if(el == "+") {
                     if(mats.size() < 2) throw std::invalid_argument("Not enough matrices for determinant.");
                     mat_1 = mats.top();
@@ -114,6 +126,7 @@ void MainWindow::onCalculateButtonClicked(){
 
                             mat_1 = mats.top();
                             mats.pop();
+
                             mats.push(mat_1 * scalar_number1);
                         }
 
@@ -121,15 +134,24 @@ void MainWindow::onCalculateButtonClicked(){
                 }
             } else {
                 if (el.startsWith("M")) {
+
                     int id_mat = el.right(el.length() - 1).toInt() -1;
-                    qDebug()<<id_mat<<"\n";
+                    qDebug()<<el<<";  "<<id_mat<<"\n";
+                    list_of_matrix[id_mat].ShowMatrix();
+                    qDebug()<<el<<";  "<<id_mat<<"\n\n\n";
+
                     mats.push(list_of_matrix[id_mat]);
+                } else {
+                    scalar.push(el.toDouble());
                 }
             }
         }
+        if(!mats.empty()){
+            mats.top().ShowMatrix();
+        } else if (!scalar.empty()){
+            qDebug()<<scalar.top();
+        }
 
-        qDebug()<<"mats.top.ShowMatrix(): \n";
-        mats.top().ShowMatrix();
 
 
     } catch (const std::invalid_argument& e) {

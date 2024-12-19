@@ -19,9 +19,7 @@ private:
     double det;
 public:
 
-    Matrix(): row(1), col(1){
-        std::cout<<"You do not set the numbers of rows and columns: \n"<<"default value: row = 1; col = 1\n";
-    }
+    Matrix(): row(1), col(1){}
 
     Matrix(const Matrix& other): data(other.data), det(other.det) {
         std::cout<<"In copy constructor\n\n";
@@ -35,11 +33,7 @@ public:
 
 
     void ShowMatrix(){
-        qDebug()<<"In ShowMatrix\n";
-        std::cout<<"Your Matrix: \n";
-        std::cout<<"row = "<<row<<";  \n";
-        std::cout<<"col = "<<col<<";  \n";
-        std::cout<<"\n \n";
+
         for(int i = 0; i < row; ++i){
             for(int j = 0; j < col; ++j){
                 std::cout<<data[i][j]<<" ";

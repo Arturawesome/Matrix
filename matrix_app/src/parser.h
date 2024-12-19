@@ -4,7 +4,7 @@
 #include<iostream>
 #include<stack>
 #include <vector>
-//std::vector<std::stack<QString>> process_the_expression(QString expression){
+
 #include <iostream>
 #include <stack>
 #include <vector>
@@ -23,7 +23,13 @@ int get_priority(const QString& op) {
 
 // Функция проверки, является ли строка оператором
 bool is_operator(const QString& token) {
-    return token == "+" || token == "*" || token == "det";
+    return token == "-" || token == "+" || token == "*" || token == "det";
+}
+
+bool is_number(const QString& token){
+    bool ok;
+    token.toDouble(&ok);
+    return ok;
 }
 
 // Функция преобразования выражения в польскую нотацию
@@ -42,6 +48,8 @@ std::vector<QString> process_the_expression(const QString& expression) {
     for (const QString& token : tokens) {
         if (token.startsWith("M"))  {
             // Если токен — переменная (например, a1, a2), добавляем в результат
+            output.push_back(token);
+        } else if(is_number(token)) {
             output.push_back(token);
         } else if (is_operator(token)) {
             // Если токен — оператор
