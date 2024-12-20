@@ -1,6 +1,31 @@
 # Ignore compile file
 a.out
+
 # Ignore plane.txt
 plan.txt
-# Ignore object files
+
+# Ignore conf Qt Creator files
+*.pro.user
+*.pro.user.*
+*.qmake.stash
+*.qmake.cache
+
+# Ignoe temporary files
 *.o
+*.obj
+*.tmp
+*.qrc.dep
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+# CMake build files
+build/
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+Makefile
+*.sh
