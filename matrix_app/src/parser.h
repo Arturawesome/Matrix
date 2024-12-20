@@ -13,6 +13,7 @@
 #include <map>
 #include <unordered_map>
 
+
 // Функция возвращает приоритет операции
 int get_priority(const QString& op) {
     if (op == "T.") return 4; // Самый высокий приоритет

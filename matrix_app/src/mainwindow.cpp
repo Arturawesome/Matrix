@@ -4,6 +4,23 @@
 #include "matrix.h"
 #include "parser.h"
 #include <QDebug>
+template<typename T>
+void add_matrix_text(QString& output, const Matrix<T>& Mat){
+    for(int i = 0; i < Mat.GetRow(); ++i){
+        for(int j = 0; j < Mat.GetCol(); ++j){
+            output += QString::number(Mat.GetVal(i, j), 'f', 1);
+            output += " ";
+        }
+        output += " \n";
+    }
+}
+
+template<typename T>
+void add_scalar_text(QString& output,  T scalar){
+    output += QString::number(scalar, 'f', 1);
+    output += "\n";
+}
+
 
 int get_index(QString mat_index){
     return mat_index.right(mat_index.size()-1).toInt();
@@ -61,7 +78,7 @@ void MainWindow::onMatrixCountChanged(int count){
 
 void MainWindow::onCalculateButtonClicked(){
     QString expression = ui->plainTextEditExpression->toPlainText();
-    QString output = "output";
+    QString output = "operations: \n";
     //qDebug()<<expression;
 
     try{
@@ -85,15 +102,27 @@ void MainWindow::onCalculateButtonClicked(){
         for(QString el:polish_not){
             if(is_operator(el)){
                 if(el == "det"){
+                    output += "det \n";
                     mat_1 = mats.top();
+                    add_matrix_text(output, mat_1);
                     mats.pop();
                     scalar.push(mat_1.GetDeterminant());
-                    output += "; det\n";
+
+
+                    output += " = \n";
+                    add_scalar_text(output, scalar.top());
+                    output += "\n\n";
                 } else if (el == "T."){
                     mat_1 = mats.top();
+                    output += "T. \n";
+                    add_matrix_text(output, mat_1);
                     mats.pop();
                     mats.push(mat_1.Transp());
-                    output += "; T";
+
+
+                    output += " = \n";
+                    add_matrix_text(output, mats.top());
+                    output += "\n\n";
 
                 } else if(el == "-") {
                     if(mats.size() < 2) throw std::invalid_argument("Not enough matrices for determinant.");
@@ -102,7 +131,14 @@ void MainWindow::onCalculateButtonClicked(){
                     mat_2 = mats.top();
                     mats.pop();
                     mats.push(mat_2 - mat_1);
-                    output += "; Minus\n";
+
+                    add_matrix_text(output, mat_1);
+                    output += " -- \n";
+                    add_matrix_text(output, mat_2);
+                    output += " == \n";
+                    add_matrix_text(output, mats.top());
+                    output += "\n \n";
+
                 } else if(el == "+") {
                     if(mats.size() < 2) throw std::invalid_argument("Not enough matrices for determinant.");
                     mat_1 = mats.top();
@@ -110,7 +146,13 @@ void MainWindow::onCalculateButtonClicked(){
                     mat_2 = mats.top();
                     mats.pop();
                     mats.push(mat_1 + mat_2);
-                    output += "; Plus\n";
+
+                    add_matrix_text(output, mat_1);
+                    output += " ++ \n";
+                    add_matrix_text(output, mat_2);
+                    output += " == \n";
+                    add_matrix_text(output, mats.top());
+                    output += "\n \n";
                 } else if (el == "*") {
                     if(scalar.empty()){
                         // multiply of two matrix
@@ -120,28 +162,40 @@ void MainWindow::onCalculateButtonClicked(){
                         mat_2 = mats.top();
                         mats.pop();
                         mats.push(mat_1 * mat_2);
-                        output += "; Multiply\n";
+
+                        add_matrix_text(output, mat_1);
+                        output += " ** \n";
+                        add_matrix_text(output, mat_2);
+                        output += " == \n";
+                        add_matrix_text(output, mats.top());
+                        output += "\n \n";
 
                     } else {
                         // multiply matrix by number
                         if (scalar.size() > 1) {
                             scalar_number1 = scalar.top();
+                            add_scalar_text(output, scalar_number1);
                             scalar.pop();
-
+                            output += " * \n";
                             scalar_number2 = scalar.top();
+                            add_scalar_text(output, scalar_number2);
                             scalar.pop();
-                            output += "; scalar Myltiply\n";
+                            output += " = ";
 
                             scalar.push(scalar_number1*scalar_number2);
+                            add_scalar_text(output, scalar.top());
+                            output += " \n\n ";
                         } else {
                             scalar_number1 = scalar.top();
                             scalar.pop();
-
+                            add_scalar_text(output, scalar_number1);
+                            output += " * \n";
                             mat_1 = mats.top();
                             mats.pop();
-                             output += "; scalar to Mat Multiply\n";
-
+                            add_matrix_text(output, mat_1);
+                            output += " == \n";
                             mats.push(mat_1 * scalar_number1);
+                            add_matrix_text(output, mats.top());
                         }
 
                     }
@@ -150,9 +204,8 @@ void MainWindow::onCalculateButtonClicked(){
                 if (el.startsWith("M")) {
 
                     int id_mat = el.right(el.length() - 1).toInt() -1;
-                    qDebug()<<el<<";  "<<id_mat<<"\n";
                     list_of_matrix[id_mat].ShowMatrix();
-                    qDebug()<<el<<";  "<<id_mat<<"\n\n\n";
+                    qDebug()<<el<<";  "<<id_mat;
 
                     mats.push(list_of_matrix[id_mat]);
                 } else {
@@ -165,8 +218,7 @@ void MainWindow::onCalculateButtonClicked(){
         } else if (!scalar.empty()){
             qDebug()<<scalar.top();
         }
-
-    ui->textBrowserAnswer->setText(output);
+        ui->textBrowserAnswer->setText(output);
 
     } catch (const std::invalid_argument& e) {
         //QMessageBox::warning(this, "Error", QString("Invalid expression: %1").arg(e.what()));

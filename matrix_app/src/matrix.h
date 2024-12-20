@@ -61,6 +61,9 @@ public:
         }
         ShowMatrix();
     }
+    T GetVal(int i, int j) const {
+        return data[i][j];
+    }
     int GetRow() const {
         if(data.empty()){
             return row;
@@ -116,7 +119,7 @@ public:
     double GetDeterminant(){
         std::vector<std::vector<double>> data_h(data);
         double det_help = 1.0;
-        int power = 0;
+        int power = 1;
 
         if(row != col){
             throw std::invalid_argument("Matrix is not a square matrix\n");
