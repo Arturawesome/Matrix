@@ -1,0 +1,14 @@
+/home/artur/Documents/Matrix/matrix_app/build/CMakeFiles/edit_cache.dir
+/home/artur/Documents/Matrix/matrix_app/build/CMakeFiles/rebuild_cache.dir
+/home/artur/Documents/Matrix/matrix_app/build/CMakeFiles/list_install_components.dir
+/home/artur/Documents/Matrix/matrix_app/build/CMakeFiles/install.dir
+/home/artur/Documents/Matrix/matrix_app/build/CMakeFiles/install/local.dir
+/home/artur/Documents/Matrix/matrix_app/build/CMakeFiles/install/strip.dir
+/home/artur/Documents/Matrix/matrix_app/build/src/CMakeFiles/MatrixApp.dir
+/home/artur/Documents/Matrix/matrix_app/build/src/CMakeFiles/edit_cache.dir
+/home/artur/Documents/Matrix/matrix_app/build/src/CMakeFiles/rebuild_cache.dir
+/home/artur/Documents/Matrix/matrix_app/build/src/CMakeFiles/list_install_components.dir
+/home/artur/Documents/Matrix/matrix_app/build/src/CMakeFiles/install.dir
+/home/artur/Documents/Matrix/matrix_app/build/src/CMakeFiles/install/local.dir
+/home/artur/Documents/Matrix/matrix_app/build/src/CMakeFiles/install/strip.dir
+/home/artur/Documents/Matrix/matrix_app/build/src/CMakeFiles/MatrixApp_autogen.dir

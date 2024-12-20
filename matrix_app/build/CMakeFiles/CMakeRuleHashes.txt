@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+b0690c59cab396a84f14ee0c76fdb2c2 src/CMakeFiles/MatrixApp_autogen
+a62ffba1df280c9166956eb4537da53c src/MatrixApp_autogen/timestamp
+9286220410ff08af47e52f469e4df60f src/qrc_icons.cpp
