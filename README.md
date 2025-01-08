@@ -1,9 +1,9 @@
 # Matrix Operations Application
 
 ## Overview
-Name: **Matrix Operations Application**
-Author: **Artur D. Nasyrov**
-Aim: training project to deepen knowledge in modern C++ and Qt framework development. 
+Name: **Matrix Operations Application**\\
+Author: **Artur D. Nasyrov**\\
+Aim: training project to deepen knowledge in modern C++ and Qt framework development. \\
 Description: The application allows users to input matrices, perform operations on them, and visualize the results interactively.
 
 ## Technologies Used
